@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Data (customize as needed)
+data/
+*.csv
+*.parquet
+*.h5
+*.hdf5
+*.tif
+*.tiff
+
+# Logs and outputs
+logs/
+outputs/
+*.log
+wandb/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uv
+uv.lock
