@@ -15,7 +15,7 @@
     // "source=/path/to/data,target=/data,type=bind,consistency=cached,readonly=false"
   ],
 
-  "postCreateCommand": "uv sync",
+  "postCreateCommand": "uv sync && uv run python scripts/check_env.py",
   "postStartCommand": "uv sync --quiet",
 
   "customizations": {
