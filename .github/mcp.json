@@ -1,0 +1,63 @@
+{
+    "_readme": [
+        "=========================================================================",
+        "MCP Configuration for GitHub Copilot Coding Agent",
+        "=========================================================================",
+        "",
+        "HOW TO USE THIS FILE:",
+        "1. Copy ONLY the 'mcpServers' section below (without this _readme block)",
+        "2. Go to: Repository Settings → Copilot → Coding agent → MCP configuration",
+        "3. Paste and save",
+        "",
+        "The coding agent does NOT read this file directly - it only reads from",
+        "the GitHub settings UI. This file exists for version control and reference.",
+        "",
+        "=========================================================================",
+        "WHAT'S NOT INCLUDED (already built-in to GitHub Coding Agent)",
+        "=========================================================================",
+        "",
+        "- github-mcp-server: Built-in with read-only access to current repo",
+        "- fetch/web access: Agent has firewalled internet access already",
+        "- filesystem: Agent runs in ephemeral Actions environment",
+        "",
+        "=========================================================================",
+        "SERVER DESCRIPTIONS",
+        "=========================================================================",
+        "",
+        "MEMORY",
+        "  Persistent key-value storage across sessions. Agents can remember",
+        "  project conventions, decisions, and context. Note: persistence may",
+        "  be limited depending on how/where the agent runs.",
+        "",
+        "CONTEXT7",
+        "  Fetches current documentation for libraries (rasterio, geopandas,",
+        "  polars, torch, etc.) directly from source, rather than relying on",
+        "  potentially stale training data. Critical for fast-evolving libraries.",
+        "",
+        "========================================================================="
+    ],
+    "mcpServers": {
+        "memory": {
+            "type": "local",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "tools": [
+                "*"
+            ]
+        },
+        "context7": {
+            "type": "local",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp@latest"
+            ],
+            "tools": [
+                "*"
+            ]
+        }
+    }
+}

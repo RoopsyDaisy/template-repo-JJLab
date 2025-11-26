@@ -15,6 +15,8 @@ RUN apt-get update && \
         gdal-bin libgdal-dev \
         libproj-dev proj-bin \
         libgeos-dev \
+        # Node.js for MCP servers (npx)
+        nodejs npm \
         && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------------------------------------------------------
