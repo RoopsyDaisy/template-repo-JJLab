@@ -22,6 +22,7 @@ build/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+!.vscode/mcp.json
 
 # Data (customize as needed)
 data/

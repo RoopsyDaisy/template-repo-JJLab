@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "project",
+      "path": "."
+    },
+    {
+      "name": "📁 media",
+      "path": "/run/media"
+    },
+    {
+      "name": "📁 data_raid5",
+      "path": "/run/data_raid5"
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder:project}/.venv/bin/python"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.black-formatter",
+      "charliermarsh.ruff",
+      "ms-toolsai.jupyter"
+    ]
+  }
+}

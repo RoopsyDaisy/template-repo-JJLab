@@ -1,4 +1,4 @@
-FROM docker.io/nvidia/cuda:12.4.0-cudnn-runtime-ubuntu22.04
+FROM docker.io/nvidia/cuda:13.0.1-cudnn-runtime-ubuntu24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -15,6 +15,8 @@ RUN apt-get update && \
         gdal-bin libgdal-dev \
         libproj-dev proj-bin \
         libgeos-dev \
+        # Node.js for MCP servers (npx)
+        nodejs npm \
         && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------------------------------------------------------
