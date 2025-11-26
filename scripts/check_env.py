@@ -9,6 +9,7 @@ Or if venv is activated:
     python scripts/check_env.py
 """
 
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -68,25 +69,43 @@ def check_gdal():
     """Check GDAL and geospatial libraries."""
     print("\n🌍 GEOSPATIAL (GDAL)")
 
+    # Check system GDAL first
+    try:
+        result = subprocess.run(
+            ["gdal-config", "--version"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        system_gdal_version = result.stdout.strip()
+        print(f"   ✅ System GDAL: {system_gdal_version}")
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("   ❌ System GDAL not found (check Dockerfile)")
+
+    # Check Python GDAL bindings
     try:
         from osgeo import gdal
-        print(f"   ✅ GDAL version: {gdal.__version__}")
+        print(f"   ✅ Python GDAL: {gdal.__version__}")
         gdal_ok = True
     except ImportError:
-        print("   ❌ GDAL not available (check Dockerfile)")
+        print("   ⚠️  Python GDAL bindings not installed")
         gdal_ok = False
 
     # Optional Python geospatial packages
-    for pkg, install_hint in [
-        ("rasterio", "uv sync --extra geo"),
-        ("geopandas", "uv sync --extra geo"),
-        ("shapely", "uv sync --extra geo"),
-    ]:
+    geo_packages = ["rasterio", "geopandas", "shapely"]
+    installed = []
+    missing = []
+    for pkg in geo_packages:
         try:
             m = __import__(pkg)
-            print(f"   ✅ {pkg}: {m.__version__}")
+            installed.append(f"{pkg} {m.__version__}")
         except ImportError:
-            print(f"   ⚠️  {pkg} not installed (optional: {install_hint})")
+            missing.append(pkg)
+
+    if installed:
+        print(f"   ✅ Geospatial: {', '.join(installed)}")
+    if missing:
+        print(f"   ⚠️  Missing: {', '.join(missing)} (uv sync --extra dev --extra geo)")
 
     return gdal_ok
 
@@ -149,9 +168,8 @@ def check_data_mounts():
 
     # Common mount points - customize for your lab
     mount_points = [
-        Path("/data"),
-        Path("/fire_analysis_data"),
-        Path.home() / "data",
+        Path("/run/media"),
+        Path("/run/data_raid5"),
     ]
 
     found_any = False
@@ -207,6 +225,8 @@ def main():
         print("  1. Start exploring in notebooks/")
         print("  2. Put reusable code in lib/")
         print("  3. Entry point scripts go in scripts/")
+        print()
+        print("💡 Tip: Open default.code-workspace to see data mounts in explorer")
     else:
         print("❌ SOME CRITICAL CHECKS FAILED")
         print()

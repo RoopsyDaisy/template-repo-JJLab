@@ -1,41 +1,29 @@
 {
   "name": "${localWorkspaceFolderBasename}",
-
   "build": { "dockerfile": "../Dockerfile", "context": ".." },
-
   "runArgs": [
     "--device=nvidia.com/gpu=all",
     "--security-opt", "label=disable",
     "--userns=keep-id"
   ],
   "remoteUser": "vscode",
-
   "mounts": [
-    // Uncomment and customize for data mounts:
-    // "source=/path/to/data,target=/data,type=bind,consistency=cached,readonly=false"
+    "source=/run/media,target=/run/media,type=bind,consistency=cached",
+    "source=/run/data_raid5,target=/run/data_raid5,type=bind,consistency=cached"
   ],
-
-  "postCreateCommand": "uv sync && uv run python scripts/check_env.py",
-  "postStartCommand": "uv sync --quiet",
-
+  "postCreateCommand": "uv sync --extra dev && uv run python scripts/check_env.py",
+  "postStartCommand": "uv sync --extra dev --quiet",
   "customizations": {
     "vscode": {
       "settings": {
-        // Python interpreter (uv creates .venv)
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.locator": "native",
-
-        // Jupyter Interactive Window
         "python.dataScience.sendSelectionToInteractiveWindow": true,
         "jupyter.interactiveWindow.mode": "perFile",
-
-        // Terminal defaults
         "terminal.integrated.defaultProfile.linux": "bash",
         "terminal.integrated.profiles.linux": {
           "bash": { "path": "/bin/bash" }
         },
-
-        // Formatting (black 88 chars, ruff for linting)
         "editor.formatOnSave": true,
         "python.formatting.provider": "black",
         "[python]": {
@@ -44,22 +32,15 @@
         }
       },
       "extensions": [
-        // Core Python
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-python.black-formatter",
         "charliermarsh.ruff",
-
-        // Jupyter
         "ms-toolsai.jupyter",
         "ms-toolsai.vscode-jupyter-cell-tags",
-
-        // Utilities
         "mechatroner.rainbow-csv",
         "redhat.vscode-yaml",
         "tamasfe.even-better-toml",
-
-        // Git
         "eamodio.gitlens"
       ]
     }

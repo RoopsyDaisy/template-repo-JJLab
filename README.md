@@ -6,11 +6,15 @@ Brief description of your project.
 
 ## Quick Start
 
-1.Make sure Dev Containers in vscode is using podman rather than docker
+1. Make sure Dev Containers in vscode is using podman rather than docker
 2. **Clone and open in VS Code** with Dev Containers extension
 3. VS Code will prompt to "Reopen in Container" - accept
 4. Wait for container build and `uv sync` to complete
-5. Start coding!
+5. **Open `default.code-workspace`** to see data mounts in the explorer
+6. Start coding!
+
+> **Tip**: Opening the `.code-workspace` file gives you a multi-root workspace with 
+> `/run/media` and `/run/data_raid5` visible in the file explorer alongside your code.
 
 ## Manual Setup (without devcontainer)
 
